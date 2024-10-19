@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import TransactionList from './components/TransactionList';
+import Statistics from './components/Statistics';
+import BarChart from './components/BarChart';
+import PieChart from './components/PieChart';
+import CombinedData from './components/CombinedData';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [month, setMonth] = useState('January');
+
+    return (
+        <div className="App">
+            <h1>Product Transaction Dashboard</h1>
+            <label>
+                Select Month:
+                <select value={month} onChange={(e) => setMonth(e.target.value)}>
+                    {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+                        .map((m) => <option key={m} value={m}>{m}</option>)}
+                </select>
+            </label>
+            <TransactionList />
+            <Statistics month={month} />
+            <BarChart month={month} />
+            <PieChart month={month} />
+            <CombinedData month={month} />
+        </div>
+    );
 }
 
 export default App;
